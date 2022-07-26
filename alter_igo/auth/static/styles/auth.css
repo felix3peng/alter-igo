@@ -1,0 +1,25 @@
+.login-window {
+    width: 60%;
+    margin: auto;
+    margin-top: 20vh;
+    text-align: center;
+}
+
+#username {
+    display: block;
+    padding: 1px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#password {
+    display: block;
+    padding: 1px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#login-button {
+    display: block;
+    margin: auto;
+}

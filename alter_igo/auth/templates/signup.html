@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Page title-->
+    <title>Alter Igo | Sign Up</title>
+    <!--Meta tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!--Static imports-->
+    <link rel="stylesheet" href="{{ url_for('auth.static', filename='styles/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/default.min.css') }}">
+    <link rel= "stylesheet" type= "text/css" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
+</head>
+<body>
+    <div class="signup-window">
+        <h1>Sign up to use Alter Igo</h1>
+        <form method="POST" action="{{ url_for('auth.signup') }}">
+            {{ form.csrf_token }}
+            <fieldset class="username">
+                {{ form.username.label }}
+                {{ form.username(placeholder="Username") }}
+            </fieldset>
+            
+            <fieldset class="password">
+                {{ form.password.label }}
+                {{ form.password }}
+            </fieldset>
+
+            <fieldset class="confirm">
+                {{ form.confirm.label }}
+                {{ form.confirm }}
+            </fieldset>
+
+            <div class="submit-button">
+                {{ form.submit }}
+            </div>
+        </form>
+    </div>
+    <div class="login-redirect">
+        <h1>Already have an account?</h1>
+        <a href="{{ url_for('auth.login') }}">
+            <button type="button" id="login-button">
+                Log in
+            </button>
+        </a>
+    </div>
+</body>

@@ -1,0 +1,272 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.display {
+    overflow: auto;
+    overflow-x: hidden;
+    backface-visibility: hidden;
+    margin-top: 0px;
+    padding-left: 20px;
+    padding-top: 20px;
+    will-change: overflow;
+    padding: .5rem;
+    padding-left: 20px;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+}
+
+.entry {
+    overflow: auto;
+    overflow-x: hidden;
+    backface-visibility: hidden;
+    margin-top: 0px;
+    will-change: overflow;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    height: 100%;
+    width: 33vw;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    box-shadow: 0.5px 0px 0.5px gray;
+}
+
+.title-close-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+    display: flex;
+}
+
+.entry-title {
+    display: flex;
+    align-items: center;
+}
+
+.entry-header {
+    position: relative;
+    margin-right: 4rem;
+}
+
+.open-close-btn {
+    position: absolute;
+    margin-top: 20px;
+    right: 1rem;
+    background-color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3rem;
+    cursor: pointer;
+    align-items: center;
+    z-index: 1;
+    padding: 0px;
+}
+
+#arrowIcon,
+#submit-icon,
+#refresh-icon,
+.bx-like,
+.bx-dislike,
+.bx-edit,
+.bx-check,
+.bx-trash,
+.bx-x {
+    vertical-align: middle;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0px;
+}
+
+.thumbsup,
+.thumbsdown,
+.edit,
+.confirm,
+.delete,
+.cancel {
+    border: none;
+    color: gray;
+    background-color: transparent;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+}
+
+.display {
+    margin-left: 33vw;
+    padding-top: 10px;
+}
+
+#cmd {
+    width: 96%;
+    height: 20vh;
+    padding: 8px;
+}
+
+.textarea-and-btns {
+    position: relative;
+}
+
+.btn-toolbar {
+    float: right;
+    margin-right: 4%;
+    display: flex;
+    margin-left: 5px;
+}
+
+#submit {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0px;
+    background-color: green;
+}
+
+#clear {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0px;
+}
+
+#checkbox {
+    margin: auto;
+    margin-left: 5px;
+}
+
+h2 {
+    margin-top: 0px;
+}
+
+.cobutton {
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0;
+    border: none;
+    outline: none;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.active, .cobutton:hover {
+    background-color: #eeeeee;
+}
+
+.cobutton.collapsed:before {
+    content: 'Click to view code';
+}
+
+.cobutton:before {
+    content: 'Click to hide code';
+}
+
+.commandwrapper {
+    position: relative;
+    vertical-align: middle;
+}
+
+.numlabel {
+    display: inline-block;
+    vertical-align: middle;
+    width: 3rem;
+}
+
+.command_disp {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: pre-wrap;
+}
+
+.feedback-btns {
+    float: right;
+    vertical-align: middle;
+    margin-right: 10px;
+    z-index: 100;
+}
+
+.output {
+    display: block;
+    margin-top: 5px;
+    margin-left: 3rem;
+    overflow-x: auto;
+    margin-right: 5px;
+    width: calc(100% - 3rem);
+}
+
+.dl_btn {
+    margin-top: 5px;
+}
+
+.codewrapper {
+    margin-left: 3rem;
+    width: calc(100% - 3rem);
+}
+
+.content {
+    margin-top: 20px;
+}
+
+#showcode-disclaimer {
+    padding-left: 5px;
+}
+
+.table {
+    border-collapse: collapse;
+    border: none;
+}
+
+td, th {
+    border: none;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading .modal {
+    overflow: hidden;   
+}
+
+body.loading .modal {
+    display: block;
+}
+
+.editbox {
+    display: block;
+}

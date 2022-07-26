@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Page title-->
+    <title>Alter Igo: Talk to your Data</title>
+    <!--Meta tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!--Static imports-->
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='styles/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/default.min.css') }}">
+    <link rel= "stylesheet" type= "text/css" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='highlight.min.js') }}"></script>
+</head>
+<body>
+    <div class="entry" id="entry">
+        <div class="title-close-wrapper">
+            <div class="entry-title" id="entry-title">
+                <span class="entry-header">
+                    <h3>Say what you want in plain English:</h3>
+                </span>
+            </div>
+            <button class="open-close-btn" id="open-close-btn" title="Collapse or expand sidebar">
+                <i class="bx bx-arrow-from-right" id="arrowIcon"></i>
+            </button>
+        </div>
+        <div class="entry-main-content" id="entry-main-content">
+            <div class="textarea-and-btns">
+                <textarea id="cmd" name="cmd" autocomplete="off"></textarea>
+                <br>
+                <div class="btn-toolbar">
+                    <button class="btn btn-primary" id="submit" type="button" title="Submit query (Ctrl+Enter)">
+                        <i class="bx bx-right-arrow-alt" id="submit-icon"></i>
+                    </button>
+                    <button class="btn" id="clear" type="button" title="Clear display & remove variables">
+                        <i class="bx bx-refresh" id="refresh-icon"></i>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div>
+                <label for="#checkbox" class="checklabelcont">
+                    <input type="checkbox" id="checkbox" name="checkbox">
+                    <span class="checkbox-label">Show code</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="display" id="display">
+        <div class="content" id="content"></div>
+    </div>
+    <div class="modal"></div>
+
+    <script src="{{ url_for('home.static', filename='scripts.js') }}"></script>
+</body>

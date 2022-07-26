@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Page title-->
+    <title>Alter Igo | Welcome</title>
+    <!--Meta tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!--Static imports-->
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='styles/index.css') }}">
+    <script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
+</head>
+<body>
+    <div class="mainblock">
+        <div class="titleblock">
+            <h1>Alter Igo: Talk to your Data</h1>
+        </div>
+        <div class="login-dir">
+            <a href="{{ url_for('auth.login') }}">
+                <button type="button" id="login-button">
+                    Login
+                </button>
+            </a>
+        </div>
+    </div>
+</body>

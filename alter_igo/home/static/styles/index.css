@@ -1,0 +1,31 @@
+.top-bar-links {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.mainblock {
+    margin: auto;
+    width: 60%;
+}
+
+.titleblock {
+    display: block;
+    text-align: center;
+}
+
+.login-dir {
+    margin-top: 10px;
+    text-align: center;
+}
+#login-button {
+    height: 2rem;
+    width: 5rem;
+    border-radius: 1.5rem;
+    border-style: none;
+    background-color: lightblue;
+    text-align: center;
+}
