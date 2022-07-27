@@ -271,3 +271,25 @@ body.loading .modal {
 .editbox {
     display: block;
 }
+
+.floating-logout {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 13.5px;
+}
+
+.floating-logout:hover {
+    background-color: #ec7200;
+    color: white;
+}
+
+.bx-log-out-circle {
+    margin: auto;
+    color: black;
+}

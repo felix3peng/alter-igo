@@ -9,13 +9,14 @@ import re
 import sys
 
 # local imports
-from ..api import s00, codex_context, runcode, codex_call, log_commands, log_edit, get_log, codex_filename, trim_prompt
+from ..api import s00, s01, codex_context, runcode, codex_call, log_commands, log_edit, get_log, codex_filename, trim_prompt
 from ..models import User, db, Log, CodeEdit
 
 # set up variables
 old_stdout = sys.stdout
 ldict = {}
 exec(s00, ldict)
+exec(s01, ldict)
 numtables = 0
 numplots = 0
 
@@ -120,6 +121,7 @@ def clear():
     numtables = 0
     numplots = 0
     exec(codex_context, ldict)
+    exec(s01, ldict)
     return jsonify(outputs=[])
 
 

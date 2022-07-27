@@ -3,6 +3,9 @@ import os
 import sys
 import numpy as np
 import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
 import matplotlib.pyplot as plt
 import matplotlib_venn as v
 import seaborn as sns
@@ -34,6 +37,9 @@ s00 = '''import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns'''
+s01 = '''pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)'''
 
 codex_context = '# import standard libraries\n' + s00 + '\n'
 fname = 'codex_script_' + re.sub('\.[0-9]+', '', str(datetime.now()).replace(' ', '_').replace(':', '_')) + '.txt'
