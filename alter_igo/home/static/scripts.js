@@ -2,7 +2,8 @@ var i=1;
 var nt=0;
 var np=0;
 
-
+// when submit button is clicked, send command to backend for processing
+// when results are received, display them in the proper format
 $('#submit').click(function(){
     $.getJSON("/home/process", {
         command: $('#cmd').val(),
@@ -49,11 +50,12 @@ $('#submit').click(function(){
 });
 });
 
+// when clear button is clicked, all objects are wiped
 $('#clear').click(function(){
     i=1;
     nt=0;
     np=0;
-    $.getJSON('/clear', {
+    $.getJSON('/home/clear', {
         value: 1,
     }, function(data){
         $('.content').empty();
@@ -62,6 +64,7 @@ $('#clear').click(function(){
     });
 });
 
+// if showcode checkbox is checked, show code automatically
 $('#showcode').change(function () {
     if ($(this).is(":checked")) {
         $('#table').show();
@@ -135,7 +138,7 @@ function download_table_as_csv(table_id) {
 }
 
 function positive(button_id) {
-    $.getJSON('/positive_feedback', {
+    $.getJSON('/home/positive_feedback', {
             db_id: button_id,
         }, function(data) {
             var elem_up = document.getElementById('thumbsup'+button_id)
@@ -150,7 +153,7 @@ function positive(button_id) {
 }
 
 function negative(button_id) {
-    $.getJSON('/negative_feedback', {
+    $.getJSON('/home/negative_feedback', {
             db_id: button_id,
         }, function(data) {
             var elem_up = document.getElementById('thumbsup'+button_id)
@@ -250,7 +253,7 @@ function editconfirm(code_div_id) {
     editbox.replaceWith(newdiv);
     var record_id = editButton.previousSibling.id.replace(/[^0-9]/g,'');
     var outputdiv = newdiv.parentElement.nextSibling;
-    $.getJSON('/edit', {
+    $.getJSON('/home/edit', {
         ref: record_id,
         new_code: editedcode,
     }, function(data) {
@@ -304,7 +307,7 @@ function editcancel(code_div_id) {
 function deleteentry(record_id) {
     var wrapper = document.getElementById('wrapper'+record_id);
     var linebreak = wrapper.nextSibling;
-    $.getJSON('/delete_record', {
+    $.getJSON('/home/delete_record', {
         db_id: record_id,
     }, function(data) {
         wrapper.remove();
