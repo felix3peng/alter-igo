@@ -1,31 +1,50 @@
-.top-bar-links {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5px;
-    padding-top: 0.5rem;
-    text-align: center;
-}
-
 .mainblock {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     margin: auto;
     width: 60%;
+    height: 10rem;
+    padding: 10px;
+    text-align: center;
 }
 
-.titleblock {
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
+
+h1, p {
+    text-align: center;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
     display: block;
+    margin: auto;
+    height: 30px;
+    width: 80px;
+    border-radius: 7.5px;
     text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-style: none;
 }
 
-.login-dir {
-    margin-top: 10px;
-    text-align: center;
-}
 #login-button {
-    height: 2rem;
-    width: 5rem;
-    border-radius: 1.5rem;
-    border-style: none;
-    background-color: lightblue;
-    text-align: center;
+    background-color: #e9e9e9;
+    color: black;
+}
+
+#signup-button {
+    background-color: #e9e9e9;
+    color: black;
+}
+
+#login-button:hover,
+#signup-button:hover {
+    background-color: #ec7200;
+    color: white;
 }

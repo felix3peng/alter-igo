@@ -1,4 +1,4 @@
-.login-window {
+.signup-window {
     position: absolute;
     top:0;
     bottom: 0;
@@ -21,7 +21,7 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 
-#signup-button {
+#login-button {
     display: block;
     margin: auto;
     height: 30px;
@@ -36,7 +36,7 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 
-#signup-button:hover,
+#login-button:hover,
 #submit:hover {
     display: block;
     margin: auto;
@@ -79,6 +79,13 @@ input {
 }
 
 .password {
+    display: block;
+    padding: 1px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.confirm {
     display: block;
     padding: 1px;
     margin: auto;

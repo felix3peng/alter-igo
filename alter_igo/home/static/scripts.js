@@ -2,21 +2,52 @@ var i=1;
 var nt=0;
 var np=0;
 
-// when submit button is clicked, send command to backend for processing
-// when results are received, display them in the proper format
 $('#submit').click(function(){
     $.getJSON("/home/process", {
         command: $('#cmd').val(),
     }, function(data){
         var wrapper_id = "wrapper" + data.outputs[4];
         $('.content').append('<div id="' + wrapper_id + '" class="wrapper"></div>');
-        $('#' + wrapper_id).append('<div class="commandwrapper"><div class="numlabel">['+i+']: </div><div class="command_disp"><b>'+data.outputs[1]+'</b></div><div class="feedback-btns"><button class="thumbsup" id="thumbsup'+data.outputs[4]+'" type="button" onclick="positive('+data.outputs[4]+')" title="This worked well"><i class="bx bx-like"></i></button><button class="thumbsdown" id="thumbsdown'+data.outputs[4]+'" type="button" onclick="negative('+data.outputs[4]+')" title="This did not work well"><i class="bx bx-dislike"></i></button><button class="edit" id="edit'+i+'" type="button" onclick="editcode('+i+')"><i class="bx bx-edit"></i></button><button class="delete" id="delete'+data.outputs[4]+'" type="button" onclick="deleteentry('+data.outputs[4]+')"><i class="bx bx-trash"></i></button></div></div></div>');
+        $('#' + wrapper_id).append('<div class="commandwrapper">\
+                                        <div class="numlabel">['+i+']: </div>\
+                                        <div class="command_disp" id="command'+i+'"><b>'+data.outputs[1]+'</b></div>\
+                                        <div class="feedback-btns">\
+                                            <button class="thumbsup" id="thumbsup'+data.outputs[4]+'" type="button" onclick="positive('+data.outputs[4]+')" title="This worked well">\
+                                                <i class="bx bx-like"></i>\
+                                            </button>\
+                                            <button class="thumbsdown" id="thumbsdown'+data.outputs[4]+'" type="button" onclick="negative('+data.outputs[4]+')" title="This did not work well">\
+                                                <i class="bx bx-dislike"></i>\
+                                            </button>\
+                                            <button class="edit" id="edit'+i+'" type="button" onclick="editcode('+i+')" title="Edit this entry">\
+                                                <i class="bx bx-edit"></i>\
+                                            </button>\
+                                            <button class="delete" id="delete'+data.outputs[4]+'" type="button" onclick="deleteentry('+data.outputs[4]+')" title="Delete this entry">\
+                                                <i class="bx bx-trash"></i>\
+                                            </button>\
+                                        </div>\
+                                    </div>\
+                                </div>');
         if (document.getElementById('checkbox').checked) {
-            $('#' + wrapper_id).append("<div class='codewrapper'><button data-toggle='collapse' class='cobutton' data-target='#code"+i+"'></button><div class='collapse in' id='code"+i+"'><pre><code class='language-python'>"+data.outputs[2]+"</code></pre></div></div>");
+            $('#' + wrapper_id).append("<div class='codewrapper'>\
+                                            <button data-toggle='collapse' class='cobutton' data-target='#code"+i+"'></button>\
+                                            <div class='collapse in' id='code"+i+"'>\
+                                                <pre><code class='language-python'>"+data.outputs[2]+"</code></pre>\
+                                            </div>\
+                                        </div>");
         } else if (data.outputs[3] == "") {
-            $('#' + wrapper_id).append("<div class='codewrapper'><button data-toggle='collapse' class='cobutton' data-target='#code"+i+"'></button><div class='collapse in' id='code"+i+"'><pre><code class='language-python'>"+data.outputs[2]+"</code></pre></div></div>");
+            $('#' + wrapper_id).append("<div class='codewrapper'>\
+                                            <button data-toggle='collapse' class='cobutton' data-target='#code"+i+"'></button>\
+                                            <div class='collapse in' id='code"+i+"'>\
+                                                <pre><code class='language-python'>"+data.outputs[2]+"</code></pre>\
+                                            </div>\
+                                        </div>");
         } else {
-            $('#' + wrapper_id).append("<div class='codewrapper'><button data-toggle='collapse' class='cobutton collapsed' data-target='#code"+i+"'></button><div class='collapse' id='code"+i+"'><pre><code class='language-python'>"+data.outputs[2]+"</code></pre></div></div>");
+            $('#' + wrapper_id).append("<div class='codewrapper'>\
+                                            <button data-toggle='collapse' class='cobutton collapsed' data-target='#code"+i+"'></button>\
+                                            <div class='collapse' id='code"+i+"'>\
+                                                <pre><code class='language-python'>"+data.outputs[2]+"</code></pre>\
+                                            </div>\
+                                        </div>");
         }
         let outputdiv = document.createElement('div');
         outputdiv.classList = "output";
@@ -50,7 +81,6 @@ $('#submit').click(function(){
 });
 });
 
-// when clear button is clicked, all objects are wiped
 $('#clear').click(function(){
     i=1;
     nt=0;
@@ -64,7 +94,6 @@ $('#clear').click(function(){
     });
 });
 
-// if showcode checkbox is checked, show code automatically
 $('#showcode').change(function () {
     if ($(this).is(":checked")) {
         $('#table').show();
@@ -169,22 +198,38 @@ function negative(button_id) {
 
 function editcode(code_div_id) {
     var targetdiv = document.getElementById('code'+code_div_id);
+    var commanddiv = document.getElementById('command'+code_div_id);
+    var origcommand = commanddiv.innerText;
     var origcode = targetdiv.textContent;
     var editableText = document.createElement("textarea");
+    var editableCmd = document.createElement("textarea");
     var editButton = document.getElementById('edit'+code_div_id);
     var confirmButton = document.createElement("button");
+
     if (targetdiv.classList == "collapse") {
         targetdiv.classList = "collapse in";
         targetdiv.previousSibling.classList = "cobutton"
     }
     $(targetdiv).show();
+
     let h = $(targetdiv).css('height');
+    let h2 = $(commanddiv).css('height');
+
+    $(commanddiv).hide();
     $(targetdiv).hide();
+
+    editableCmd.classList = "editcommand";
+    editableCmd.id = "editcmd" + code_div_id;
+    editableCmd.style.height = h2;
+    editableCmd.style.width = "calc(100% - 23rem)";
+    editableCmd.value = origcommand;
+
     editableText.classList = "editbox";
     editableText.id = "editcode"+code_div_id;
     editableText.style.height = h;
     editableText.style.width = "100%";
     editableText.value = origcode;
+
     confirmButton.classList = "confirm";
     confirmButton.id = "confirm"+code_div_id;
     let icon = document.createElement("i");
@@ -192,8 +237,11 @@ function editcode(code_div_id) {
     confirmButton.appendChild(icon);
     confirmButton.type = "button";
     confirmButton.setAttribute("onclick", "editconfirm("+code_div_id+")");
-    editableText.value = origcode; 
+    confirmButton.setAttribute("title", "Confirm this edit");
+
     targetdiv.insertAdjacentElement("afterend", editableText);
+    commanddiv.insertAdjacentElement("afterend", editableCmd);
+
     editButton.replaceWith(confirmButton);
     cancelButton = document.createElement("button");
     cancelButton.classList = "cancel";
@@ -204,6 +252,8 @@ function editcode(code_div_id) {
     confirmButton.insertAdjacentElement("afterend", cancelButton);
     cancelButton.type = "button";
     cancelButton.setAttribute("onclick", "editcancel("+code_div_id+")");
+    cancelButton.setAttribute("title", "Cancel this edit");
+
     $(editableText).keydown(function(e) {
         if(e.keyCode == 9) {
             var start = this.selectionStart;
@@ -224,16 +274,39 @@ function editcode(code_div_id) {
             cancelButton.click();
         }
     });
+
+    $(editableCmd).keydown(function(e) {
+        if(e.ctrlKey && (e.keyCode == 13 || e.keyCode == 10)) {
+            e.preventDefault();
+            confirmButton.click();
+            cancelButton.remove();
+        }
+        if(e.key === "Escape") {
+            e.preventDefault();
+            cancelButton.click();
+        }
+    });
 }
 
 function editconfirm(code_div_id) {
     var editbox = document.getElementById("editcode"+code_div_id);
+    var editcmd = document.getElementById("editcmd"+code_div_id);
     var confirmButton = document.getElementById('confirm'+code_div_id);
     var targetdiv = document.getElementById('code'+code_div_id);
     var newdiv = document.createElement("div");
+    var commanddiv = document.getElementById('command'+code_div_id);
+    var newcmd = document.createElement("div");
     var editButton = document.createElement("button");
     var editedcode = editbox.value;
+    var editedcmd = editcmd.value;
     var cancelButton = document.getElementById('cancel'+code_div_id);
+
+    commanddiv.remove();
+    newcmd.classList = "command_disp";
+    newcmd.id = "command"+code_div_id;
+    newcmd.appendChild(document.createElement("b"));
+    newcmd.lastChild.innerText = editedcmd;
+    
     targetdiv.remove();
     newdiv.classList = "collapse in";
     newdiv.id = "code"+code_div_id;
@@ -241,6 +314,7 @@ function editconfirm(code_div_id) {
     newdiv.lastChild.appendChild(document.createElement("code"));
     newdiv.lastChild.lastChild.class = "language-python";
     newdiv.lastChild.lastChild.textContent = editedcode;
+
     editButton.classList = "edit";
     editButton.id = "edit"+code_div_id;
     let icon = document.createElement("i");
@@ -248,13 +322,19 @@ function editconfirm(code_div_id) {
     editButton.append(icon);
     editButton.type = "button";
     editButton.setAttribute("onclick", "editcode("+code_div_id+")");
+    editButton.setAttribute("title", "Edit this entry");
     confirmButton.replaceWith(editButton);
     cancelButton.remove();
+
     editbox.replaceWith(newdiv);
-    var record_id = editButton.previousSibling.id.replace(/[^0-9]/g,'');
+    editcmd.replaceWith(newcmd);
+
+    var record_id = editButton.previousElementSibling.id.replace(/[^0-9]/g,'');
     var outputdiv = newdiv.parentElement.nextSibling;
+
     $.getJSON('/home/edit', {
         ref: record_id,
+        new_cmd: editedcmd,
         new_code: editedcode,
     }, function(data) {
         // parse the outputtype and output passed back, change outputdiv accordingly
@@ -285,11 +365,15 @@ function editconfirm(code_div_id) {
 
 function editcancel(code_div_id) {
     var targetdiv = document.getElementById('code'+code_div_id);
+    var commanddiv = document.getElementById('command'+code_div_id);
     var origcode = targetdiv.textContent;
+    var origcmd = commanddiv.innerText;
     var editbox = document.getElementById("editcode"+code_div_id);
+    var editcmd = document.getElementById("editcmd"+code_div_id);
     var confirmButton = document.getElementById('confirm'+code_div_id);
     var cancelButton = document.getElementById('cancel'+code_div_id);
     var editButton = document.createElement("button");
+
     editButton.classList = "edit";
     editButton.id = "edit"+code_div_id;
     let icon = document.createElement("i");
@@ -297,10 +381,14 @@ function editcancel(code_div_id) {
     editButton.append(icon);
     editButton.type = "button";
     editButton.setAttribute("onclick", "editcode("+code_div_id+")");
+    editButton.setAttribute("title", "Edit this entry");
+
     confirmButton.replaceWith(editButton);
     cancelButton.remove();
     editbox.remove();
+    editcmd.remove();
     $(targetdiv).show();
+    $(commanddiv).show();
     hljs.highlightAll();
 }
 

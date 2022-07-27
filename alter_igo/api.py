@@ -20,6 +20,10 @@ import base64
 import traceback
 import time
 from flask_login import current_user
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
 
 from .models import db, User, Log, CodeEdit
 
@@ -60,16 +64,6 @@ def codex_call(prompt):
     return response['choices'][0]['text'], elapsed
 
 
-# mini-function to try-except a code chunk with a given dictionary
-def try_code(code, local):
-    try:
-        exec(code, local)
-    except KeyError:
-        pass
-    except:
-        print(error_msg + '\nTraceback:\n' + traceback.format_exc())
-
-
 # mini-function to trim codex_context when necessary
 def trim_prompt(prompt):
     if len(prompt) > 2000:
@@ -97,7 +91,12 @@ def runcode(code, ldict, old_stdout, numtables, numplots):
     tldict = ldict.copy()
     # turn off plotting to save memory
     plt.ioff()
-    try_code(code, tldict)
+    try:
+        exec(code, tldict)
+    except KeyError:
+        pass
+    except:
+        print(error_msg + '\nTraceback:\n' + traceback.format_exc())
     # capture output of code as a figure and extract data
     fig = plt.gcf()
     buf = BytesIO()
@@ -109,12 +108,19 @@ def runcode(code, ldict, old_stdout, numtables, numplots):
     if np.min(x) == np.max(x):
         new_stdout = StringIO()
         sys.stdout = new_stdout
-        try_code(code, ldict)
+        try:
+            exec(code, ldict)
+        except KeyError:
+            pass
+        except:
+            print(error_msg + '\nTraceback:\n' + traceback.format_exc())
         output = new_stdout.getvalue()
         sys.stdout = old_stdout
 
         # further parsing to determine if plain string or dataframe
         if bool(re.search('Index', output)):
+            outputtype = 'string'
+        elif bool(re.search('Traceback', output)):
             outputtype = 'string'
         elif bool(re.search(r'[\s]{3,}', output)):
             outputtype = 'dataframe'

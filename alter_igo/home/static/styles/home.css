@@ -196,6 +196,7 @@ h2 {
 .command_disp {
     display: inline-block;
     vertical-align: middle;
+    text-align: left;
     white-space: pre-wrap;
 }
 

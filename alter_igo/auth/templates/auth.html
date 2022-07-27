@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="login-window">
-        <h1>Login to access Alter Igo</h1>
+        <h1>Log In to access Alter Igo</h1>
         <form method="POST" action="{{ url_for('auth.login') }}">
             {{ form.csrf_token }}
             <fieldset class="username">
@@ -32,12 +32,9 @@
                 {{ form.submit }}
             </div>
         </form>
-    </div>
-    <div class="signup-redirect">
-        <h1>Don't have an account?</h1>
+        <p>Don't have an account?</p>
         <a href="{{ url_for('auth.signup') }}">
-            <button type="button" id="login-button">
-                Sign up
-            </button>
+            <button type="button" id="signup-button">Sign Up</button>
         </a>
+    </div>
 </body>

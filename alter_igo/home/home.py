@@ -10,7 +10,7 @@ import sys
 
 # local imports
 from ..api import s00, codex_context, runcode, codex_call, log_commands, log_edit, get_log, codex_filename, trim_prompt
-from ..models import User, db, Log
+from ..models import User, db, Log, CodeEdit
 
 # set up variables
 old_stdout = sys.stdout
@@ -78,7 +78,9 @@ def process():
     # fails if the codeblock is empty, wrap in try-except to avoid erroring out
     try:
         lastline = codeblock.splitlines()[-1]
-        if ('=' not in lastline) and ('return' not in lastline) and ('print' not in lastline) and ('.fit' not in lastline) and ('plt' not in lastline):
+        if ('=' not in lastline) and ('return' not in lastline) \
+            and ('from' not in lastline) and ('import' not in lastline) \
+                and ('print' not in lastline) and ('.fit' not in lastline) and ('plt' not in lastline):
             lastline_print = 'print(' + lastline + ')'
             codeblock = codeblock.replace(lastline, lastline_print)
             print('Caught last line as a declaration, wrapping in print statement...')
@@ -88,7 +90,7 @@ def process():
         pass
 
     # strip leading and trailing whitespaces if included
-    codex_context += codeblock + '\n'
+    codex_context += codeblock.strip() + '\n'
 
     # call runcode function to run the codeblock
     [outputtype, output, ldict, numtables, numplots] = runcode(codeblock, ldict, old_stdout, numtables, numplots)
@@ -122,7 +124,7 @@ def clear():
 
 
 # create a function to process positive feedback
-@app.route('/positive_feedback')
+@home_bp.route('/positive_feedback')
 @login_required
 def positive_feedback():
     id = request.args.get('db_id')
@@ -140,7 +142,7 @@ def positive_feedback():
 
 
 # create a function to process negative feedback
-@app.route('/negative_feedback')
+@home_bp.route('/negative_feedback')
 @login_required
 def negative_feedback():
     id = request.args.get('db_id')
@@ -158,7 +160,7 @@ def negative_feedback():
 
 
 # create a function to process code edits
-@app.route('/edit')
+@home_bp.route('/edit')
 @login_required
 def edit():
     global codex_context, ldict, numtables, numplots
@@ -189,9 +191,10 @@ def edit():
 
 
 # create a function to delete record from db
-@app.route('/delete_record')
+@home_bp.route('/delete_record')
 @login_required
 def delete_record():
+    global codex_context, ldict, numtables, numplots
     id = request.args.get('db_id')
     print('Received delete request for record', id)
     
@@ -203,7 +206,14 @@ def delete_record():
         command = "'''\n" + record.command.strip() + "\n'''"
     else:
         command = '# ' + record.command.strip().replace('\n', '\n# ') + '\n'
-    codeblock = record.codeblock + '\n'
+
+    # retrive most recent edit made to this record and use the most recent codeblock
+    if record.times_edited > 0:
+        last_edit = CodeEdit.query.filter_by(ref_id=id).order_by(id.desc()).first()
+        codeblock = last_edit.edited_code.strip() + '\n'
+    else:
+        codeblock = record.codeblock.strip() + '\n'
+
     codex_context = codex_context.replace(command, '')
     codex_context = codex_context.replace(codeblock, '')
 
