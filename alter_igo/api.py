@@ -51,7 +51,7 @@ error_msg = 'Sorry, something went wrong. Please check the code and edit as need
 '''
 FUNCTION DEFINITIONS
 '''
-# submit codex API call
+# submit codex API call for single-line command
 def codex_call(prompt):
     # time the api response
     start = time.time()
@@ -64,6 +64,25 @@ def codex_call(prompt):
         frequency_penalty=1,
         presence_penalty=1,
         stop=["#", "'''", '"""']
+        )
+    end = time.time()
+    elapsed = end - start
+    return response['choices'][0]['text'], elapsed
+
+
+# submit codex API call for multi-line command (without # as stop sequence)
+def codex_call_multiline(prompt):
+    # time the api response
+    start = time.time()
+    # template for openai codex api request
+    response = openai.Completion.create(
+        model="code-davinci-002",
+        prompt=prompt,
+        temperature=0.01,
+        max_tokens=4000,
+        frequency_penalty=1,
+        presence_penalty=1,
+        stop=["'''", '"""']
         )
     end = time.time()
     elapsed = end - start

@@ -9,7 +9,8 @@ import re
 import sys
 
 # local imports
-from ..api import s00, s01, codex_context, runcode, codex_call, log_commands, log_edit, get_log, codex_filename, trim_prompt
+from ..api import s00, s01, codex_context, runcode, codex_call, codex_call_multiline,\
+    log_commands, log_edit, get_log, codex_filename, trim_prompt
 from ..models import User, db, Log, CodeEdit
 
 # set up variables
@@ -57,9 +58,11 @@ def process():
     # wrap multiline commands in quotes for block comments
     if '\n' in command:
         command = "'''\n" + command + "\n'''"
+        cmd_type = 'multiline'
     # prepend single line commands with # for line comments
     else:
         command = '# ' + command
+        cmd_type = 'single'
     print(command)
 
     # check length of codex_context and trim if necessary
@@ -69,7 +72,10 @@ def process():
 
     # call openai api using code-davinci-002 to generate code from the command
     print('Calling codex API...')
-    response, elapsed = codex_call(codex_context)
+    if cmd_type == 'single':
+        response, elapsed = codex_call(codex_context)
+    else:
+        response, elapsed = codex_call_multiline(codex_context)
     print('Received response from codex API in {0:.2f} seconds.'.format(elapsed))
     codeblock = response.strip()
     print('Received code:\n')
