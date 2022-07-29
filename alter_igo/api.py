@@ -59,7 +59,7 @@ def codex_call(prompt):
     response = openai.Completion.create(
         model="code-davinci-002",
         prompt=prompt,
-        temperature=0.01,
+        temperature=0,
         max_tokens=4000,
         frequency_penalty=1,
         presence_penalty=1,
@@ -78,7 +78,7 @@ def codex_call_multiline(prompt):
     response = openai.Completion.create(
         model="code-davinci-002",
         prompt=prompt,
-        temperature=0.01,
+        temperature=0,
         max_tokens=4000,
         frequency_penalty=1,
         presence_penalty=1,
