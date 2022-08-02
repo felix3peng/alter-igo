@@ -40,4 +40,4 @@ The frontend is built using HTML, CSS, and JavaScript. JavaScript is also used t
 
 By default, the traceback of any errors will be displayed. This can help with troubleshooting code that didn't run properly (e.g. missing an import). Users can edit the code to insert or fix code, then re-submit it.
 
-I've made an effort to comment the code as much as possible, which may help with understanding what's going on behind the scenes. For further questions, please raise an issue or contact me at [mailto:felix.peng@zs.com](mailto:felix.peng@zs.com).
+I've made an effort to comment the code as much as possible, which may help with understanding what's going on behind the scenes. For further questions, please raise an issue on the repository page.

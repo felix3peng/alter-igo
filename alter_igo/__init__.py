@@ -21,12 +21,12 @@ def create_app():
 
     # set up oauth client
     oauth.register(
-        name='zs',
-        client_id='zs_client_id',
-        client_secret='zs_client_secret',
-        api_base_url='https://www.zs.com',
-        access_token_url='https://www.zs.com/oauth/token',
-        authorize_url='https://www.zs.com/oauth/authorize',
+        name='',
+        client_id='',
+        client_secret='',
+        api_base_url='',
+        access_token_url='',
+        authorize_url='',
     )
     '''
 
